@@ -50,7 +50,7 @@ public class AlertRabbit {
         }
     }
 
-    private static Properties getProperties(String propertyFile) {
+    public static Properties getProperties(String propertyFile) {
         Properties properties = new Properties();
         try (FileInputStream fi = new FileInputStream(propertyFile)) {
             properties.load(fi);
