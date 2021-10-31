@@ -39,15 +39,15 @@ public class SqlRuDateTimeParser implements DateTimeParser {
             return LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month),
                     Integer.parseInt(day), hour, min);
         }
+
+        LocalDateTime today = LocalDateTime.of(LocalDateTime.now().getYear(),
+                LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(),
+                hour, min);
         if (strDate[0].equals("сегодня")) {
-            return LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
-                    LocalDateTime.now().getDayOfMonth(), hour, min);
+            return today;
         }
         if (strDate[0].equals("вчера")) {
-            return LocalDateTime.of(LocalDateTime.now().minusDays(1).getYear(),
-                    LocalDateTime.now().minusDays(1).getMonth(),
-                    LocalDateTime.now().minusDays(1).getDayOfMonth(),
-                    hour, min);
+            return today.minusDays(1);
         }
         return null;
     }
