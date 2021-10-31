@@ -22,7 +22,8 @@ public class SqlRuParse {
                 System.out.println(td.parent().child(5).text());
             }
 
-            doc = Jsoup.connect(pages.first().child(i).attr("href")).get();
+            doc = Jsoup.connect("https://www.sql.ru/forum/job-offers"
+                    + "/" + (i + 1)).get();
             System.out.println(System.lineSeparator());
 
         }
