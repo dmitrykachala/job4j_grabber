@@ -30,12 +30,18 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) {
         List<Post> listPost = new ArrayList<>();
+
         try {
-        Document doc = Jsoup.connect(link).get();
-        Elements row = doc.select(".postslisttopic");
-        for (Element td : row) {
-            Element href = td.child(0);
-            listPost.add(detail(href.attr("href")));
+            Document doc = Jsoup.connect(link).get();
+            for (int i = 1; i < 6; i++) {
+
+                Elements row = doc.select(".postslisttopic");
+                for (Element td : row) {
+                    Element href = td.child(0);
+                    listPost.add(detail(href.attr("href")));
+                }
+
+            doc = Jsoup.connect(link + "/" + (i + 1)).get();
         }
         } catch (Exception e) {
             e.printStackTrace();
