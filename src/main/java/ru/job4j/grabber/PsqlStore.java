@@ -15,9 +15,6 @@ public class PsqlStore implements Store, AutoCloseable {
 
     public PsqlStore(Properties cfg) {
         try {
-            InputStream in = PsqlStore.class.getClassLoader()
-                    .getResourceAsStream("app.properties");
-            cfg.load(in);
             Class.forName(cfg.getProperty("jdbc.driver"));
             cnn = DriverManager.getConnection(
                     cfg.getProperty("url"),
@@ -27,6 +24,16 @@ public class PsqlStore implements Store, AutoCloseable {
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    public static Post resultSetToPost(ResultSet resultSet) throws SQLException {
+        return new Post(
+                resultSet.getInt("id"),
+                resultSet.getString("title"),
+                resultSet.getString("link"),
+                resultSet.getString("description"),
+                resultSet.getTimestamp("created").toLocalDateTime()
+        );
     }
 
     @Override
@@ -57,13 +64,7 @@ public class PsqlStore implements Store, AutoCloseable {
         try (PreparedStatement statement = cnn.prepareStatement("select * from post")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    posts.add(new Post(
-                            resultSet.getInt("id"),
-                            resultSet.getString("title"),
-                            resultSet.getString("link"),
-                            resultSet.getString("description"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
-                    ));
+                    posts.add(resultSetToPost(resultSet));
                 }
             }
         } catch (Exception e) {
@@ -80,13 +81,7 @@ public class PsqlStore implements Store, AutoCloseable {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    rsl = new Post(
-                            resultSet.getInt("id"),
-                            resultSet.getString("title"),
-                            resultSet.getString("link"),
-                            resultSet.getString("description"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
-                    );
+                    rsl = resultSetToPost(resultSet);
                 }
             }
         } catch (Exception e) {
@@ -104,6 +99,13 @@ public class PsqlStore implements Store, AutoCloseable {
 
     public static void main(String[] args) {
         Properties cfg = new Properties();
+        try {
+            InputStream in = PsqlStore.class.getClassLoader()
+                    .getResourceAsStream("app.properties");
+            cfg.load(in);
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
         PsqlStore psqlS = new PsqlStore(cfg);
 
         psqlS.save(new Post("q", "www.q.qq", "qqq", LocalDateTime.now().minusDays(2)));
