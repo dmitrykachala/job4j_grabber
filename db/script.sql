@@ -24,11 +24,8 @@ select * from person;
 
 select p.name, c.name as company_name from person p left join company c on p.company_id = c.id where c.id != 5;
 
-select * from 
-(select c.id, c.name, count(p.company_id) from company c, person p where c.id = p.company_id
-group by c.id) cpc
-where
-cpc.count = 
-(select max(cpm.counter) from
-(select cm.name, count(pm.company_id) counter from company cm join person pm on pm.company_id = cm.id
-group by cm.name) cpm);
+select c.id, c.name, count(p.company_id) from company c, person p where c.id = p.company_id
+group by c.id
+having count(p.company_id) =
+(select count(p.company_id) as counter from company as c join person p on p.company_id = c.id
+group by c.name order by counter desc limit 1);
