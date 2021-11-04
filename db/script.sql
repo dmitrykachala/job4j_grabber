@@ -27,5 +27,5 @@ select p.name, c.name as company_name from person p left join company c on p.com
 select c.id, c.name, count(p.company_id) from company c, person p where c.id = p.company_id
 group by c.id
 having count(p.company_id) =
-(select count(p.company_id) as counter from company as c join person p on p.company_id = c.id
-group by c.name order by counter desc limit 1);
+(select count(p.company_id) as counter from person p 
+group by company_id  order by counter desc limit 1);
