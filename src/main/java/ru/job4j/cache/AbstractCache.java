@@ -14,8 +14,12 @@ public abstract class AbstractCache<K, V> {
     }
 
     public V get(K key) {
-        SoftReference<V> valueReference = cache.get(key);
-        return valueReference != null ? valueReference.get() : null;
+        //SoftReference<V> valueReference = cache.get(key);
+        if (cache.get(key) == null) {
+            //load(key);
+            put(key, load(key));
+        }
+        return cache.get(key).get();
     }
 
     protected abstract V load(K key);
