@@ -45,7 +45,7 @@ public class CinemaTest {
     }
 
     @Ignore
-    @Test
+    @Test(expected = WrongTicketException.class)
     public void buyDuplicateTicket() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -53,6 +53,25 @@ public class CinemaTest {
         date.set(2020, 10, 10, 23, 00);
         Ticket ticket = cinema.buy(account, 1, 1, date);
         Ticket ticketDuplicate = cinema.buy(account, 1, 1, date);
+    }
 
+    @Ignore
+    @Test(expected = WrongDateException.class)
+    public void buyWrongDate() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(1945, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 1, 1, date);
+    }
+
+    @Ignore
+    @Test(expected = WrongSeatException.class)
+    public void buyWrongSeat() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2021, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 150, 1000, date);
     }
 }
