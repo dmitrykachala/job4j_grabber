@@ -11,16 +11,17 @@ public abstract class AbstractCache<K, V> {
     public void put(K key, V value) {
         if (load(key).equals("") || load(key) == null) {
             System.out.println("Achtung!");
+            return;
         }
-        SoftReference<V> valSoftRef = new SoftReference<>(value);
-        cache.put(key, valSoftRef);
+            SoftReference<V> valSoftRef = new SoftReference<>(value);
+            cache.put(key, valSoftRef);
     }
 
     public V get(K key) {
-        if (cache.get(key).get() == null) {
+        if (cache.get(key) == null || cache.get(key).get() == null) {
             put(key, load(key));
         }
-        return cache.get(key).get();
+        return cache.get(key) != null ? cache.get(key).get() : null;
     }
 
     protected abstract V load(K key);

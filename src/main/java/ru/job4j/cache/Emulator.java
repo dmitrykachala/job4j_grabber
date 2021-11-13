@@ -30,7 +30,7 @@ public class Emulator {
             if (answer.equals("2")) {
                 System.out.print("Введите имя файла: ");
                 String fileName = scanner.nextLine();
-                dfc.load(fileName);
+                dfc.put(fileName, dfc.load(fileName));
                 continue;
             }
             if (answer.equals("3")) {
