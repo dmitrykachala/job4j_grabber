@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 public class ReportAccounting implements Report {
 
+    private static final double VAT = 0.13;
+
     private Store store;
 
     public ReportAccounting(Store store) {
@@ -19,7 +21,7 @@ public class ReportAccounting implements Report {
                     .append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
-                    .append(employee.getSalary() - employee.getSalary() * 0.13).append(";");
+                    .append(employee.getSalary() - employee.getSalary() * VAT).append(";");
         }
         return text.toString();
     }
