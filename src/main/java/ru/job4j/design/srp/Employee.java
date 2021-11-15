@@ -1,8 +1,11 @@
 package ru.job4j.design.srp;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
+@XmlRootElement(name = "employee")
 public class Employee {
     private String name;
     private Calendar hired;
@@ -14,6 +17,10 @@ public class Employee {
         this.hired = hired;
         this.fired = fired;
         this.salary = salary;
+    }
+
+    public Employee() {
+
     }
 
     public String getName() {
@@ -64,4 +71,5 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(name);
     }
+
 }
