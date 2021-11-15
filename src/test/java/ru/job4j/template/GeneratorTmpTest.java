@@ -34,7 +34,7 @@ public class GeneratorTmpTest {
         Map<String, String> map = new HashMap<>();
         map.put("name", "Yoda");
         map.put("subject", "Jedi");
-        String rsl = generator.produce(template, map);
+        generator.produce(template, map);
     }
 
     @Ignore
@@ -46,6 +46,42 @@ public class GeneratorTmpTest {
         map.put("name", "Yoda");
         map.put("subject", "Jedi");
         map.put("object", "train");
-        String rsl = generator.produce(template, map);
+        generator.produce(template, map);
+    }
+
+    @Ignore
+    @Test(expected = Exception.class)
+    public void whenIncorrectTemplate1() {
+        GeneratorTmp generator = new GeneratorTmp();
+        String template = "I am ${name, I am ${subject}!";
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Yoda");
+        map.put("subject", "Jedi");
+        map.put("object", "train");
+        generator.produce(template, map);
+    }
+
+    @Ignore
+    @Test(expected = Exception.class)
+    public void whenIncorrectTemplate2() {
+        GeneratorTmp generator = new GeneratorTmp();
+        String template = "I am ${name}, I am {subject}!";
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Yoda");
+        map.put("subject", "Jedi");
+        map.put("object", "train");
+        generator.produce(template, map);
+    }
+
+    @Ignore
+    @Test(expected = Exception.class)
+    public void whenIncorrectTemplate() {
+        GeneratorTmp generator = new GeneratorTmp();
+        String template = "I am name}, I am ${subject}!";
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Yoda");
+        map.put("subject", "Jedi");
+        map.put("object", "train");
+        generator.produce(template, map);
     }
 }
