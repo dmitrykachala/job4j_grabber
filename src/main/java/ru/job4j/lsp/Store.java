@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Store {
+public abstract class Store {
 
     private final List<Food> products = new ArrayList<>();
     private final StoreStrategy s;
 
-    public Store(StoreStrategy s) {
+    protected Store(StoreStrategy s) {
         this.s = s;
     }
 
@@ -26,5 +26,9 @@ public class Store {
         return products.stream()
                 .filter(filter)
                 .collect(Collectors.toList());
+    }
+
+    public StoreStrategy getStrategy() {
+        return s;
     }
 }

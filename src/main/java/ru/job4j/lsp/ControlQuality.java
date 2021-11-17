@@ -25,9 +25,9 @@ import java.util.List;
         }
 
         public void sorter(List<Food> food) {
-            Store warehouse = new Store(new WarehouseStrategy());
-            Store shop = new Store(new ShopStrategy());
-            Store trash = new Store(new TrashStrategy());
+            Store warehouse = new WarehouseStore();
+            Store shop = new ShopStore();
+            Store trash = new TrashStore();
 
             long lost = food.stream().filter(i -> !warehouse.apply(i)).filter(i ->
                     !shop.apply(i)).filter(i -> !trash.apply(i)).count();
