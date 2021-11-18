@@ -1,4 +1,4 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.food;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
