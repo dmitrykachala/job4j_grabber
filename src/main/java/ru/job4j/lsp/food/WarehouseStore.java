@@ -10,8 +10,17 @@ public class WarehouseStore implements Store {
     private List<Food> products = new ArrayList<>();
 
     @Override
-    public void save(Food food) {
-        products.add(food);
+    public boolean accept(Food food) {
+        return getExpirationPercent(food) > 0.75;
+    }
+
+    @Override
+    public boolean save(Food food) {
+        if (accept(food)) {
+            products.add(food);
+            return true;
+        }
+        return false;
     }
 
     @Override

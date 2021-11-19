@@ -10,8 +10,25 @@ public class ShopStore implements Store {
     private List<Food> products = new ArrayList<>();
 
     @Override
-    public void save(Food food) {
-        products.add(food);
+    public boolean accept(Food food) {
+        if (getExpirationPercent(food) >= 0.25 && getExpirationPercent(food) <= 0.75) {
+            return true;
+        }
+        if (getExpirationPercent(food) > 0 && getExpirationPercent(food) < 0.25) {
+            food.setDiscount(0.5);
+            food.setPrice(food.getPrice() * food.getDiscount());
+            return true;
+        }
+            return false;
+    }
+
+    @Override
+    public boolean save(Food food) {
+        if (accept(food)) {
+            products.add(food);
+            return true;
+        }
+        return false;
     }
 
     @Override
