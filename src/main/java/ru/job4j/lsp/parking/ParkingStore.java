@@ -1,26 +1,20 @@
 package ru.job4j.lsp.parking;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ParkingStore implements Parking {
 
-public abstract class ParkingStore {
+    private int carsCount;
+    private int trucksCount;
 
-    private final List<Car> cars = new ArrayList<>();
-    private final ParkingStrategy strategy;
+    private final Car[] pCars = new Car[carsCount];
+    private final Truck[] trucks = new Truck[trucksCount];
 
-    protected ParkingStore(ParkingStrategy strategy) {
-        this.strategy = strategy;
+    protected ParkingStore(int carsCount, int trucksCount) {
+        this.carsCount = carsCount;
+        this.trucksCount = trucksCount;
     }
 
-    public boolean apply(Car car) {
-        if (strategy != null && strategy.takePlace(car)) {
-            cars.add(car);
-            return true;
-        }
+    public boolean takePlace(Car car) {
         return false;
     }
 
-    public ParkingStrategy getStrategy() {
-        return strategy;
-    }
 }

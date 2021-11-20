@@ -1,11 +1,15 @@
 package ru.job4j.lsp.parking;
 
-public class Car {
+public abstract class Car {
 
     private int places;
 
     public Car(int places) {
         this.places = places;
+    }
+
+    public Car() {
+
     }
 
     public int getPlaces() {
