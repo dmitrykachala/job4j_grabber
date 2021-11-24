@@ -1,5 +1,7 @@
 package ru.job4j.lsp.food;
 
+import java.util.List;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class ControlQuality {
                     new Milk(future10, past10, 100, 0),
                     new Meat(future10, past100, 100, 0));
             ControlQuality cq = sorter(products);
-            cq.resort();
+            cq.resort(cq);
         }
 
         public static Date asDate(LocalDate localDate) {
@@ -56,20 +58,12 @@ public class ControlQuality {
             return cq;
         }
 
-        public void resort() {
-            ControlQuality cq = new ControlQuality(List.of(new WarehouseStore(),
-                    new ShopStore(), new TrashStore()));
+        public void resort(ControlQuality cq) {
 
-            storage.stream()
+            sorter(cq.storage.stream()
                     .map(s -> s.findBy(f -> true))
                     .flatMap(Collection::stream)
-                    .forEach(cq::distribute);
-
-            storage = cq.storage;
-
-            System.out.println(storage.get(0).findBy(f -> true));
-            System.out.println(storage.get(1).findBy(f -> true));
-            System.out.println(storage.get(2).findBy(f -> true));
+                    .collect(Collectors.toList()));
         }
     }
 
