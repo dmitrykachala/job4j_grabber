@@ -29,4 +29,9 @@ public class TrashStore implements Store {
                 .filter(filter)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void clean() {
+        products.clear();
+    }
 }

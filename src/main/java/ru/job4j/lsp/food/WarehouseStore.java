@@ -29,4 +29,9 @@ public class WarehouseStore implements Store {
                 .filter(filter)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void clean() {
+        products.clear();
+    }
 }

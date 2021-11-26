@@ -38,7 +38,7 @@ public class ControlQuality {
                     new Milk(future10, past10, 100, 0),
                     new Meat(future10, past100, 100, 0));
             ControlQuality cq = sorter(products);
-            cq.resort(cq);
+            cq.resort();
         }
 
         public static Date asDate(LocalDate localDate) {
@@ -58,12 +58,14 @@ public class ControlQuality {
             return cq;
         }
 
-        public void resort(ControlQuality cq) {
+        public ControlQuality resort() {
 
-            sorter(cq.storage.stream()
+            List<Food> lsForResort = storage.stream()
                     .map(s -> s.findBy(f -> true))
                     .flatMap(Collection::stream)
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toList());
+            storage.forEach(Store::clean);
+            return  sorter(lsForResort);
         }
     }
 

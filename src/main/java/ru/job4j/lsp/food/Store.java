@@ -15,6 +15,8 @@ public interface Store {
                 / (food.getExpiryDate().getTime() - food.getCreateDate().getTime());
     }
 
+    void clean();
+
     List<Food> findBy(Predicate<Food> filter);
 
 }
