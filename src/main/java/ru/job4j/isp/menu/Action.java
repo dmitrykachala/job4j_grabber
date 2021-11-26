@@ -1,8 +1,7 @@
 package ru.job4j.isp.menu;
 
-public interface Menu {
-
-        String name();
+@FunctionalInterface
+public interface Action {
 
         boolean execute();
 }
