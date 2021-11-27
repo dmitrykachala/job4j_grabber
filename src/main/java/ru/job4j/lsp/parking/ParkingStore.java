@@ -27,11 +27,12 @@ public class ParkingStore implements Parking {
                 return true;
             } else if (cFree >= car.getPlaces()) {
                 for (int i = 0; i < car.getPlaces(); i++) {
-                    pCars[cCounter + i] = car;
+                    pCars[cCounter] = car;
                     cCounter++;
                 }
                 return true;
             }
+            return false;
         }
         if (cFree >= 1) {
             pCars[cCounter] = car;

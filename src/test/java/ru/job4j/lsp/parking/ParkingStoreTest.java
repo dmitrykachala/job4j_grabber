@@ -36,4 +36,14 @@ public class ParkingStoreTest {
         boolean rslTruck = ps.takePlace(truck);
         assertTrue(rslTruck);
     }
+
+    @Test
+    public void when2TruckTo3Cars() {
+        ParkingStore ps = new ParkingStore(3, 0);
+        Truck truck = new Truck(2);
+        boolean rslTruck1 = ps.takePlace(truck);
+        assertTrue(rslTruck1);
+        boolean rslTruck2 = ps.takePlace(truck);
+        assertFalse(rslTruck2);
+    }
 }
