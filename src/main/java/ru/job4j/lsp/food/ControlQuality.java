@@ -4,10 +4,8 @@ import java.util.List;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class ControlQuality {
@@ -37,7 +35,9 @@ public class ControlQuality {
                     new Food("Food2", past10, past100, 100, 0),
                     new Milk(future10, past10, 100, 0),
                     new Meat(future10, past100, 100, 0));
-            ControlQuality cq = sorter(products);
+            ControlQuality cq = new ControlQuality(List.of(new WarehouseStore(), new ShopStore(),
+                    new TrashStore()));
+            cq.sorter(products);
             cq.resort();
         }
 
@@ -45,27 +45,24 @@ public class ControlQuality {
             return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         }
 
-        public static ControlQuality sorter(List<Food> food) {
+        public void sorter(List<Food> food) {
 
-            ControlQuality cq = new ControlQuality(List.of(new WarehouseStore(),
-                    new ShopStore(), new TrashStore()));
-            food.forEach(cq::distribute);
+            food.forEach(this::distribute);
 
-            System.out.println(cq.storage.get(0).findBy(f -> true));
-            System.out.println(cq.storage.get(1).findBy(f -> true));
-            System.out.println(cq.storage.get(2).findBy(f -> true));
+            System.out.println(storage.get(0).findBy(f -> true));
+            System.out.println(storage.get(1).findBy(f -> true));
+            System.out.println(storage.get(2).findBy(f -> true));
 
-            return cq;
         }
 
-        public ControlQuality resort() {
+        public void resort() {
 
             List<Food> lsForResort = storage.stream()
                     .map(s -> s.findBy(f -> true))
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             storage.forEach(Store::clean);
-            return  sorter(lsForResort);
+            sorter(lsForResort);
         }
     }
 
