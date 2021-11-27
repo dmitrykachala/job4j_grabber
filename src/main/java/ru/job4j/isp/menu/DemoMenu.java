@@ -14,7 +14,7 @@ public class DemoMenu {
     }
 
     public void print() {
-        root.print("");
+        System.out.println(root.print(""));
     }
 
     public static void main(String[] args) {

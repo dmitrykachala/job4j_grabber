@@ -40,8 +40,10 @@ public class MenuItem implements MenuInterface {
     }
 
     @Override
-    public void print(String level) {
-        System.out.println(level + name);
-        nodes.forEach(n -> n.print(level + SPACE));
+    public String print(String level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(level).append(name).append("\r\n");
+        nodes.forEach(n -> sb.append(n.print(level + SPACE)));
+        return sb.toString();
     }
 }

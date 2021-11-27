@@ -6,5 +6,5 @@ public interface MenuInterface {
 
     Action select(String nodeName);
 
-    public void print(String level);
+    String print(String level);
 }
