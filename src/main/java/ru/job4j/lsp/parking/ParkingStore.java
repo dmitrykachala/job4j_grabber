@@ -18,28 +18,28 @@ public class ParkingStore implements Parking {
     }
 
     public boolean takePlace(Car car) {
+
         int tFree = trucksCount - tCounter;
         int cFree = carsCount - cCounter;
+        int tIn = tCounter;
+        int cIn = cCounter;
+
         if (car.getPlaces() > 1) {
             if (tFree >= 1) {
                 trucks[tCounter] = car;
                 tCounter++;
-                return true;
             } else if (cFree >= car.getPlaces()) {
                 for (int i = 0; i < car.getPlaces(); i++) {
                     pCars[cCounter] = car;
                     cCounter++;
                 }
-                return true;
             }
-            return false;
         }
         if (cFree >= 1) {
             pCars[cCounter] = car;
             cCounter++;
-            return true;
         }
-        return false;
+        return (tIn != tCounter || cIn != cCounter);
     }
 
 }

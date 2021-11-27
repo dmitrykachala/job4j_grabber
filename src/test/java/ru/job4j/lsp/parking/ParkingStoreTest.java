@@ -1,6 +1,5 @@
 package ru.job4j.lsp.parking;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
