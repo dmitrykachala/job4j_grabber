@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 public class ParkingStoreTest {
 
-    @Ignore
     @Test
     public void addCarsAndTrue() {
         ParkingStore ps = new ParkingStore(2, 3);
@@ -19,7 +18,6 @@ public class ParkingStoreTest {
         assertTrue(rslPCar);
     }
 
-    @Ignore
     @Test
     public void addCarsAndFalse() {
         ParkingStore ps = new ParkingStore(0, 0);
@@ -31,4 +29,11 @@ public class ParkingStoreTest {
         assertFalse(rslPCar);
     }
 
+    @Test
+    public void whenTruckToCars() {
+        ParkingStore ps = new ParkingStore(3, 0);
+        Truck truck = new Truck(2);
+        boolean rslTruck = ps.takePlace(truck);
+        assertTrue(rslTruck);
+    }
 }
