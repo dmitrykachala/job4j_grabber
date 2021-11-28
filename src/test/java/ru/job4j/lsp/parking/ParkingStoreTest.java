@@ -45,4 +45,5 @@ public class ParkingStoreTest {
         boolean rslTruck2 = ps.takePlace(truck);
         assertFalse(rslTruck2);
     }
+
 }

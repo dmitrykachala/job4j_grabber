@@ -7,6 +7,7 @@ public class ParkingStore implements Parking {
 
     private Car[] pCars;
     private Car[] trucks;
+
     private int tCounter = 0;
     private int cCounter = 0;
 
@@ -21,25 +22,28 @@ public class ParkingStore implements Parking {
 
         int tFree = trucksCount - tCounter;
         int cFree = carsCount - cCounter;
-        int tIn = tCounter;
-        int cIn = cCounter;
+        boolean rsl = false;
 
         if (car.getPlaces() > 1) {
             if (tFree >= 1) {
                 trucks[tCounter] = car;
                 tCounter++;
+                rsl = true;
             } else if (cFree >= car.getPlaces()) {
                 for (int i = 0; i < car.getPlaces(); i++) {
                     pCars[cCounter] = car;
                     cCounter++;
                 }
+                rsl = true;
             }
+            return rsl;
         }
         if (cFree >= 1) {
             pCars[cCounter] = car;
             cCounter++;
+            rsl = true;
         }
-        return (tIn != tCounter || cIn != cCounter);
+        return rsl;
     }
 
 }
